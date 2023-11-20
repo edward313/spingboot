@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build with Maven') {
             tools {
-                maven 'my-maven'
+                maven 'maven'
             }
             steps {
                 sh 'mvn --version'
@@ -19,7 +19,7 @@ pipeline {
                 sh '''
                     docker compose down || echo "No existing containers"
                     docker compose -f docker-compose.yml build
-                    docker compose -f docker-compose.yml up -d
+                    docker compose -f docker-compose.yml up -d --scale web=2
                     docker compose ps
                  '''
             }
